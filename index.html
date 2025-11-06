@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        fieldset {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        legend {
+            font-size: 1.125rem;
+            font-weight: 600;
+            padding: 0 0.5rem;
+        }
+        label {
+            font-weight: 500;
+        }
+        input[type="text"], input[type="email"], input[type="number"] {
+            width: 100%;
+            border-radius: 0.375rem;
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem 0.75rem;
+            margin-top: 0.25rem;
+        }
+        input[type="checkbox"] {
+            border-radius: 0.25rem;
+            border: 1px solid #cbd5e1;
+        }
+        #output-container {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            background: #f8fafc;
+        }
+        #output {
+            padding: 1.5rem;
+            min-height: 150px;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+        .note {
+            font-size: 0.875rem;
+            color: #475569;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 p-4 md:p-8">
+    <main class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">Refund Policy Generator</h1>
+        <p class="text-center text-gray-600 mb-8">Fill in the form to generate a basic Refund Policy for your e-commerce site.</p>
+
+        <form id="refund-form" class="space-y-4">
+
+            <!-- 1. Introduction & Company -->
+            <fieldset>
+                <legend>1. Introduction & Company</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="company-name">Company Name:</label>
+                        <input type="text" id="company-name" placeholder="e.g., Coqui Cloud LLC">
+                    </div>
+                    <div>
+                        <label for="website-name">Website Name:</label>
+                        <input type="text" id="website-name" placeholder="e.g., Coqui Cloud Store">
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label for="website-url">Website URL:</label>
+                    <input type="text" id="website-url" placeholder="https://www.coqui.cloud">
+                </div>
+            </fieldset>
+
+            <!-- 2. Returns Window -->
+            <fieldset>
+                <legend>2. Returns Window</legend>
+                <div>
+                    <label for="return-days">How many days do users have to request a return?</label>
+                    <input type="number" id="return-days" placeholder="e.g., 30" value="30">
+                    <p class="note mt-1">This is the period from when they receive the item.</p>
+                </div>
+            </fieldset>
+
+            <!-- 3. Return Conditions -->
+            <fieldset>
+                <legend>3. Conditions for Returns</legend>
+                <p class="mb-2">What condition must the item be in?</p>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="cond-new" class="mr-2" checked>
+                        <label for="cond-new">Item must be new and unused.</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="cond-tags" class="mr-2" checked>
+                        <label for="cond-tags">Item must have original tags and packaging.</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="cond-receipt" class="mr-2" checked>
+                        <label for="cond-receipt">Proof of purchase (receipt or order number) is required.</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- 4. Non-Returnable Items -->
+            <fieldset>
+                <legend>4. Non-Returnable Items</legend>
+                <p class="mb-2">Are there any items you do NOT accept returns for?</p>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="non-digital" class="mr-2">
+                        <label for="non-digital">Digital products (software, e-books, etc.)</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="non-sale" class="mr-2">
+                        <label for="non-sale">Sale or clearance items</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="non-gift" class="mr-2">
+                        <label for="non-gift">Gift cards</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="non-perishable" class="mr-2">
+                        <label for="non-perishable">Perishable goods (food, flowers, etc.)</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- 5. Refund Process -->
+            <fieldset>
+                <legend>5. Refund & Shipping</legend>
+                <div class="space-y-4">
+                    <div>
+                        <label>Who pays for return shipping?</label>
+                        <select id="return-shipping" class="w-full border-radius-0.375rem border border-cbd5e1 p-2 mt-1 rounded-md">
+                            <option value="customer">Customer pays for return shipping</option>
+                            <option value="company">We (the Company) pay for return shipping</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Do you charge a restocking fee?</label>
+                        <select id="restocking-fee" class="w-full border-radius-0.375rem border border-cbd5e1 p-2 mt-1 rounded-md">
+                            <option value="no">No, we do not charge a restocking fee</option>
+                            <option value="yes">Yes, we charge a restocking fee (you must specify the amount)</option>
+                        </select>
+                    </div>
+                     <div>
+                        <label for="refund-days">How long after receiving the return will the refund be processed?</label>
+                        <input type="number" id="refund-days" placeholder="e.g., 5" value="5">
+                        <p class="note mt-1">Number of business days.</p>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- 6. Contact Information -->
+            <fieldset>
+                <legend>6. Contact Information</legend>
+                <div>
+                    <label for="contact-email">Contact Email for refund requests:</label>
+                    <input type="email" id="contact-email" placeholder="e.g., support@coqui.cloud">
+                </div>
+            </fieldset>
+
+        </form>
+
+        <div class="mt-8">
+            <button id="generate-btn" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
+                Generate Refund Policy
+            </button>
+        </div>
+
+        <div id="output-section" class="mt-10" style="display: none;">
+            <h2 class="text-2xl font-semibold mb-4">Your Generated Refund Policy</h2>
+            <div id="output-container">
+                <div id="output" contenteditable="true">
+                    <!-- Generated HTML will go here -->
+                </div>
+            </div>
+            
+            <button id="copy-btn" class="mt-4 w-full bg-gray-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-800 transition duration-300">
+                Copy to Clipboard
+            </button>
+            <div id="copy-success" class="text-center mt-2 text-green-600 font-medium" style="display: none;">
+                Copied to clipboard!
+            </div>
+
+            <p class="text-sm text-center text-red-600 font-semibold mt-4">
+                <strong>Not Legal Advice</strong><br>
+                This tool generates a basic template for informational purposes only. It is <strong>NOT</strong> a substitute for professional legal advice. You are responsible for ensuring your final policy complies with all applicable laws.
+            </p>
+        </div>
+
+        <!-- Coqui Cloud Promo Block -->
+        <div class="mt-12 p-6 bg-gray-100 rounded-lg border border-gray-200">
+            <div class="flex items-center">
+                <img src="https://coqui.cloud/web/image/website/1/logo/Coqui%20Cloud?unique=5caaf69" alt="Coqui Cloud Logo" class="h-10 w-auto mr-4">
+                <div>
+                    <h3 class="font-bold text-gray-800">Need a Custom Tool Like This?</h3>
+                    <p class="text-sm text-gray-600">This free tool was built by <a href="https://coqui.cloud" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Coqui Cloud</a>. We build custom web apps, automate business processes, and specialize in Odoo.
+                    </p>
+                    <a href="https://coqui.cloud/contactus" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 font-semibold hover:underline mt-1 inline-block">
+                        Contact Us for a Free Consultation &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const generateBtn = document.getElementById('generate-btn');
+            const copyBtn = document.getElementById('copy-btn');
+            const outputSection = document.getElementById('output-section');
+            const output = document.getElementById('output');
+            const copySuccess = document.getElementById('copy-success');
+
+            generateBtn.addEventListener('click', () => {
+                const company = document.getElementById('company-name').value.trim() || '[Company Name]';
+                const website = document.getElementById('website-name').value.trim() || '[Website Name]';
+                const url = document.getElementById('website-url').value.trim() || '[Website URL]';
+                const returnDays = document.getElementById('return-days').value || '30';
+                const refundDays = document.getElementById('refund-days').value || '5';
+                const contactEmail = document.getElementById('contact-email').value.trim() || '[Contact Email]';
+
+                const condNew = document.getElementById('cond-new').checked;
+                const condTags = document.getElementById('cond-tags').checked;
+                const condReceipt = document.getElementById('cond-receipt').checked;
+
+                const nonDigital = document.getElementById('non-digital').checked;
+                const nonSale = document.getElementById('non-sale').checked;
+                const nonGift = document.getElementById('non-gift').checked;
+                const nonPerishable = document.getElementById('non-perishable').checked;
+
+                const returnShipping = document.getElementById('return-shipping').value;
+                const restockingFee = document.getElementById('restocking-fee').value;
+
+                let conditionsList = '';
+                if (condNew) conditionsList += '<li>Item must be new, unused, and in the same condition that you received it.</li>';
+                if (condTags) conditionsList += '<li>Item must be in the original packaging with all original tags attached.</li>';
+                if (condReceipt) conditionsList += '<li>A receipt or proof of purchase is required.</li>';
+
+                let nonReturnableList = '';
+                if (nonDigital) nonReturnableList += '<li>Digital products (e.g., e-books, software)</li>';
+                if (nonSale) nonReturnableList += '<li>Sale or clearance items</li>';
+                if (nonGift) nonReturnableList += '<li>Gift cards</li>';
+                if (nonPerishable) nonReturnableList += '<li>Perishable goods (e.g., food, flowers)</li>';
+
+                let returnShippingText = '';
+                if (returnShipping === 'customer') {
+                    returnShippingText = 'You (the customer) will be responsible for paying for your own shipping costs for returning your item. Shipping costs are non-refundable.';
+                } else {
+                    returnShippingText = `We (${company}) will pay for the return shipping costs. We will provide you with a prepaid shipping label to return your item.`;
+                }
+
+                let restockingText = '';
+                if (restockingFee === 'yes') {
+                    restockingText = '<p>Please note that a restocking fee of [Specify Fee or Percentage] may apply to your return.</p>';
+                }
+
+                let policyHTML = `
+                    <h2>Refund Policy</h2>
+                    <p><strong>Last updated:</strong> ${new Date().toLocaleDateString()}</p>
+                    <p>Thank you for shopping at ${website}. We appreciate your business. If you are not entirely satisfied with your purchase, we're here to help.</p>
+                    
+                    <h3>Returns</h3>
+                    <p>You have <strong>${returnDays} calendar days</strong> to return an item from the date you received it.</p>
+                    <p>To be eligible for a return, your item must meet the following conditions:</p>
+                    <ul>${conditionsList}</ul>
+                    
+                    ${nonReturnableList ? `
+                    <h3>Non-Returnable Items</h3>
+                    <p>Certain items are not eligible for return, including:</p>
+                    <ul>${nonReturnableList}</ul>
+                    ` : ''}
+                    
+                    <h3>How to Initiate a Return</h3>
+                    <p>To start a return, please contact us at <strong>${contactEmail}</strong> with your order number and reason for the return. We will provide you with further instructions.</p>
+                    
+                    <h3>Return Shipping</h3>
+                    <p>${returnShippingText}</p>
+                    ${restockingText}
+
+                    <h3>Refunds</h3>
+                    <p>Once we receive your item, we will inspect it and notify you that we have received your returned item. We will immediately notify you on the status of your refund after inspecting the item.</p>
+                    <p>If your return is approved, we will initiate a refund to your original method of payment. You will receive the credit within a certain amount of days, depending on your card issuer's policies. We aim to process all approved refunds within <strong>${refundDays} business days</strong> of receiving the returned item.</p>
+                    
+                    <h3>Contact Us</h3>
+                    <p>If you have any questions on how to return your item to us, contact us at:</p>
+                    <p><strong>Email:</strong> ${contactEmail}</p>
+                    <p><strong>Website:</strong> <a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a></p>
+                `;
+
+                output.innerHTML = policyHTML;
+                outputSection.style.display = 'block';
+                copySuccess.style.display = 'none';
+            });
+
+            copyBtn.addEventListener('click', () => {
+                try {
+                    const range = document.createRange();
+                    range.selectNodeContents(output);
+                    const selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    
+                    // New clipboard API
+                    navigator.clipboard.writeText(output.innerText).then(() => {
+                        // Success - show feedback
+                        copySuccess.style.display = 'block';
+                        setTimeout(() => {
+                            copySuccess.style.display = 'none';
+                        }, 2000);
+                    }).catch(err => {
+                        // Fallback for older browsers
+                        document.execCommand('copy');
+                        copySuccess.style.display = 'block';
+                        setTimeout(() => {
+                            copySuccess.style.display = 'none';
+                        }, 2000);
+                    });
+
+                    selection.removeAllRanges();
+
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
